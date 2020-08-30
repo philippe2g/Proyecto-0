@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="PaginaPrincipal.html">
+    <link rel="stylesheet" href="js/login.js">
+    <link rel="stylesheet" href="js/init.js">
 </head>
 
 <body>
@@ -16,17 +19,17 @@
     </div> 
     
 <div class="wrapper">
-    <form class="form-signin">
+    <div class="form-signin">
         <h2 class="form-signin-heading">Inicie sesión</h2>
-        <input type="text" class="form-control" name="username" placeholder="Email Address" required=""
+        <input type="text" id="inputEmail" class="form-control" name="username" placeholder="Email Address" required=""
             autofocus="" />
-        <input type="password" class="form-control" name="password" placeholder="Password" required="" />
+        <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required="" />
         <br>
         <label class="checkbox">
             <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> recordar cuenta
         </label>
-    <button class="btn btn-lg btn-primary btn-block" onclick="location.href='PaginaPrincipal.html'" type="submit">Iniciar</button>
-    </form>
+        <button id= "submit" class="btn btn-lg btn-primary btn-block" onclick="relog()" type="submit">Iniciar</button>
+    </div>
 </div>
 
 <footer class="text-muted bg-light">
@@ -35,6 +38,8 @@
       
     </div>
   </footer>
+ 
+  <script src="js/login.js"></script>
   
 </body>
 

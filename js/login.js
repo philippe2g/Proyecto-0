@@ -4,3 +4,13 @@
 document.addEventListener("DOMContentLoaded", function(e){
 
 });
+
+function relog(){
+    var inputEmail = document.getElementById("inputEmail").value
+    var inputPass = document.getElementById("inputPassword").value
+    var remem = document.getElementById("rememberMe").checked
+    if ((inputEmail != '') && (inputPass != '')) {
+        localStorage.setItem("user", inputEmail)
+        window.location = "PaginaPrincipal.html"
+    }
+}
