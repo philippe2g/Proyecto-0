@@ -46,3 +46,8 @@ var getJSONData = function(url){
 document.addEventListener("DOMContentLoaded", function(e){
   document.getElementById('user').innerHTML = localStorage.getItem("user")
 });
+
+function getOut(){
+  localStorage.removeItem("user")
+  window.location = "index.html"
+}
