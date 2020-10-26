@@ -50,7 +50,8 @@ function showCartProducts(array) {
                     type="number" id="cantidad${i}" value="${product.count}" min="1"></td>
                 
                 <td><span class="subtotal" id="productSubtotal${i}" style="font-weight:blod;">${sub}</td>
-            </tr>
+                <td><button id="${i}" class="btn btn-danger" onclick="eliminar(${i})"> X</button></td>
+                </tr>
         `
     }
     document.getElementById("cartProducts").innerHTML += contenido;
@@ -78,6 +79,36 @@ function shippingAndTotal() {
     document.getElementById("totalEnvio").innerHTML = contenido;
 }
 
+function eliminar(i) {
+    if (cartArray.length > 1) {
+        cartArray.splice(i, 1);
+        document.getElementById("cartProducts").innerHTML = "";
+        showCartProducts(cartArray);
+    } else {
+        cartArray = []
+        document.getElementById("productoss").innerHTML =`
+            
+        <h2>No tiene productos en el carrito</h2>
+        `
+    }
+    total()
+}
+
+function selectPayment() {
+    var payments = document.getElementsByName("formadepago");
+    for (var i = 0; i < payments.length; i++) {
+        if (payments[i].checked && (payments[i].value == "1")) {
+            document.getElementById("bankPay").classList.add("d-none");
+            document.getElementById("cardPay").classList.remove("d-none");
+        } else if (payments[i].checked && (payments[i].value == "2")) {
+            document.getElementById("cardPay").classList.add("d-none");
+            document.getElementById("bankPay").classList.remove("d-none");
+        }
+    }
+
+}
+
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
@@ -97,4 +128,54 @@ document.addEventListener("DOMContentLoaded", function (e) {
             shippingAndTotal()
         });
     }
+
+
+    let buttonModalPagar = document.getElementById("modalDatosEnvio");
+    buttonModalPagar.addEventListener('click', function (e) {
+        let formEnvio = document.getElementById("needs-validation");
+        if (formEnvio.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        formEnvio.classList.add('was-validated');
+    });
+
+    let confirmPay = document.getElementById("confirmPay");
+    confirmPay.addEventListener('click', function (e) {
+        let formPay = document.getElementsByName("formadepago");
+        let value = null;
+        for (var i = 0; i < formPay.length; i++) {
+            if (formPay[i].checked) {
+                value = formPay[i].value;
+                break;
+            }
+        }
+
+        if (value != null && (value == "1" || value == "2")) {
+            let formPayment;
+            if (value == "1") { 
+                formPayment = document.getElementById('payOption1');
+            } else if (value == "2") { 
+                formPayment = document.getElementById('payOption2');
+            }
+
+            if (formPayment.checkValidity() === false) { 
+                e.preventDefault();
+                e.stopPropagation();
+            } else {
+                $('#staticBackdrop').modal('hide');
+            }
+            formPayment.classList.add('was-validated');
+        }
+    });
+
+
+    let tipoPagos = document.getElementsByName("formadepago");
+    for (var i = 0; i < tipoPagos.length; i++) {
+        tipoPagos[i].addEventListener("change", function () {
+            selectPayment();
+        });
+    }
+
+
 });
